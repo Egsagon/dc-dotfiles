@@ -10,8 +10,10 @@ Also, i'm trash at coding.
 - Distro: Arch Linux
 - WM: i3-gaps
 - Compositor: picom-tryone-git
+- theme: Dracula ([website](https://draculatheme.com/))
 - App launcher: rofi
 - Widgets: eww
+- Firefox dark theme: Dark reader with dracula theme ([addon](https://addons.mozilla.org/fr/firefox/addon/darkreader/))
 - Notifications: dunst
 - Terminal: gnome-terminal-transparency (yes sftu)
 - keyboard leds: Eruption ([github](https://github.com/X3n0m0rph59/eruption))
