@@ -1,0 +1,277 @@
+; ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ;
+; ┃                             DESK WIDGETS                            ┃ ;
+; ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ ;
+
+(defpoll mdata :interval "1s" :initial "{}" `echo $(python3 music.py)`)
+
+; Widgets
+
+(defwidget pfp []
+    (box
+        :halign "center"
+        :valign "center"
+
+        :class "pfp"
+
+        (image
+            :path "./src/pfp.png"
+            :image-width 160
+            :image-height 160
+        )
+    )
+)
+
+(defwidget rmusic []
+    (box
+        :orientation "vertical"
+        :valign "center"
+
+        ; Title
+        (box
+            :halign "center"
+
+            (label
+                :text "Track:"
+                :class "musicholder"
+            )
+
+            (label
+                :text "${mdata['title']}"
+                :class "musicinfo"
+            )
+        )
+
+        ; Author
+        (box
+            :halign "center"
+
+            (label
+                :text "Author:"
+                :class "musicholder"
+            )
+
+            (label
+                :text "${mdata['author']}"
+                :class "musicinfo"
+            )
+        )
+
+        ; Controls
+        (box
+            :class "musicctrl"
+            :halign "center"
+
+            (button
+                :onclick "playerctl previous"
+                "◁◁"
+            )
+
+            (button
+                :onclick "playerctl play-pause"
+                "❌"
+            )
+
+            (button
+                :onclick "playerctl next"
+                "▷▷"
+            )
+        )
+    )
+)
+
+(defwidget dprog []
+    (box
+        :orientation "vertical"
+
+        ; Progs line 1
+        (box
+
+            ; CPU
+            (circular-progress
+                :value useCPU
+                :start-at 25
+                :thickness 2
+                :class "pouter gcpu"
+
+                (circular-progress
+                    :value useCPUTemp
+                    :start-at 25
+                    :thickness 2
+                    :class "pinner gcpu"
+
+                    (label
+                        :text "CPU"
+                        :class "plabel"
+                    )
+                )
+            )
+
+            ; GPU
+            (circular-progress
+                :value useGPU
+                :start-at 25
+                :thickness 2
+                :class "pouter ggpu"
+
+                (circular-progress
+                    :value useGPUTemp
+                    :start-at 25
+                    :thickness 2
+                    :class "pinner ggpu"
+
+                    (label
+                        :text "GPU"
+                        :class "plabel"
+                    )
+                )
+            )
+        )
+
+        ; Progs line 2
+        (box
+
+            ; RAM
+            (circular-progress
+                :value useRAM
+                :start-at 25
+                :thickness 2
+                :class "pouter gram"
+
+                (circular-progress
+                    :value 3
+                    :start-at 25
+                    :thickness 2
+                    :class "pinner gram"
+
+                    (label
+                        :text "RAM"
+                        :class "plabel"
+                    )
+                )
+            )
+
+            ; SSD
+            (circular-progress
+                :value spaceSSD
+                :start-at 25
+                :thickness 2
+                :class "pouter gssd"
+
+                (circular-progress
+                    :value useSSD
+                    :start-at 25
+                    :thickness 2
+                    :class "pinner gssd"
+                    
+                    (label
+                        :text "SSD"
+                        :class "plabel"
+                    )
+                )
+            )
+        )
+
+        ; Shortcuts
+        (box
+            :valign "center"
+            :halign "center"
+            :class "shortcuts"
+
+            (button
+                :onclick "xdg-open https://github.com"
+                :tooltip "Github"
+                "G"
+            )
+
+            (button
+                :onclick "xdg-open https://youtube.com"
+                :tooltip "Youtube"
+                "Y"
+            )
+
+            (button
+                :onclick "xdg-open https://reddit.com"
+                :tooltip "Reddit"
+                "R"
+            )
+
+            (button
+                :onclick "xdg-open https://onedrive.live.com/?id=root&cid=5103F57971C8E736"
+                :tooltip "Onedrive"
+                "O"
+            )
+        )
+    )
+)
+
+(defwidget cava []
+    (box
+        :valign "start"
+        :halign "end"
+
+        (checkbox
+            :class "showcava"
+            :tooltip "Show glava"
+            :onunchecked "killall glava"
+            :onchecked "glava -d -m bars &"
+        )
+    )
+)
+
+; Windows
+
+(defwindow desk1
+    :monitor 0
+    :geometry (geometry
+        :x "940px" :y "-110px"
+        :width "200px" :height "200px"
+        :anchor "center"
+    )
+
+    :stacking "bg"
+    :focusable true
+    :wm-ignore true
+    (pfp)
+)
+
+(defwindow desk2
+    :monitor 0
+    :geometry (geometry
+        :x "940px" :y "110px"
+        :width "200px" :height "200px"
+        :anchor "center"
+    )
+
+    :stacking "bg"
+    :focusable true
+    :wm-ignore true
+    (rmusic)
+)
+
+(defwindow desk3
+    :monitor 0
+    :geometry (geometry
+        :x "1160px" :y "0px"
+        :width "200px" :height "420px"
+        :anchor "center"
+    )
+
+    :stacking "bg"
+    :focusable true
+    :wm-ignore true
+    (dprog)
+)
+
+(defwindow desk4
+    :monitor 0
+    :geometry (geometry
+        :x "1380px" :y "0px"
+        :width "200px" :height "420px"
+        :anchor "center"
+    )
+
+    :stacking "bg"
+    :focusable true
+    :wm-ignore true
+    (cava)
+)

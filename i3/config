@@ -1,0 +1,173 @@
+# --- i3 Config file --- #
+
+set $mod Mod4
+font pango:monospace 8
+
+exec --no-startup-id dex --autostart --environment i3
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id nm-applet
+
+# Start picom
+exec_always --no-startup-id picom --experimental-backends
+
+# Start dunst
+exec_always --no-startup-id killall -9 dunst
+exec_always --no-startup-id dunst
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Use  multimedia keys
+bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
+bindsym XF86AudioPause exec --no-startup-id playerctl play-pause
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# Kill focused window
+bindsym $mod+Shift+q kill
+
+# Start rofi
+bindsym $mod+d exec --no-startup-id ~/.config/rofi/dmenu.sh
+
+# Change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Split in diferent directions
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# Enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# Change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+z layout tabbed
+bindsym $mod+e layout toggle split
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Focus the parent container
+bindsym $mod+q focus parent
+
+# Workspace names
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# Switch to workspace
+bindsym $mod+ampersand workspace number $ws1
+bindsym $mod+eacute workspace number $ws2
+bindsym $mod+quotedbl workspace number $ws3
+bindsym $mod+apostrophe workspace number $ws4
+bindsym $mod+parenleft workspace number $ws5
+bindsym $mod+minus workspace number $ws6
+bindsym $mod+egrave workspace number $ws7
+bindsym $mod+underscore workspace number $ws8
+bindsym $mod+ccedilla workspace number $ws9
+bindsym $mod+agrave workspace number $ws10
+
+# Move focused container to workspace
+bindsym $mod+Shift+ampersand move container to workspace number $ws1
+bindsym $mod+Shift+eacute move container to workspace number $ws2
+bindsym $mod+Shift+quotedbl move container to workspace number $ws3
+bindsym $mod+Shift+apostrophe move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+minus move container to workspace number $ws6
+bindsym $mod+Shift+egrave move container to workspace number $ws7
+bindsym $mod+Shift+underscore move container to workspace number $ws8
+bindsym $mod+Shift+ccedilla move container to workspace number $ws9
+bindsym $mod+Shift+agrave move container to workspace number $ws10
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Exit i3?' -B 'Yes, shut up' 'i3-msg exit'"
+
+# Resize mode
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym m resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Window borders
+for_window [class="^.*"] border pixel 3
+
+# Class                 border  backgr. text    indicator child_border
+client.focused          #44475a #282a36 #f8f8f2 #44475a   #44475a
+client.focused_inactive #44475a #282a36 #f8f8f2 #44475a   #44475a
+client.unfocused        #44475a #282a36 #f8f8f2 #44475a   #44475a
+client.urgent           #ff5555 #282a36 #f8f8f2 #44475a   #44475a
+client.placeholder      #44475a #282a36 #f8f8f2 #44475a   #44475a
+
+client.background       #282a36
+
+# Gaps
+gaps inner 24
+gaps left 90
+
+# Start eww bar
+exec --no-startup-id eww open ewwbar
+
+# Start devilspie
+# exec --no-startup-id devilspie
+
+# Wallpaper
+exec_always --no-startup-id wallref
+
+# Flameshot
+bindsym $mod+shift+s exec flameshot gui
+
+# Show resizing on keyboard
+exec_always --no-startup-id while true; do python3 .config/i3/loop.py; sleep 0.5; done
+
+# Send notification on reload
+exec_always --no-startup-id notify-send "i3" "Reloaded config"

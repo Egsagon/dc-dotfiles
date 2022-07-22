@@ -1,0 +1,106 @@
+; ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ;
+; ┃                                POPUPS                               ┃ ;
+; ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ ;
+
+; === Shutdown popup === ;
+
+(defwidget shutContent []
+   (box
+     :orientation "vertical"
+     :class "popup ppshut"
+ 
+     (label :text "Are you sure you want to shut down?")
+ 
+     (box
+       :orientation "horizontal"
+ 
+         (button :onclick "eww close shut" "No")
+         (button :onclick "eww close shut && shutdown now" "Yes, stfu") ; like literaly
+      )
+   )
+)
+
+(defwindow shut
+   :monitor 0
+   :geometry (geometry
+      :x "109px" :y "-110px"
+      :width "300px" :height "60px"
+      :anchor "left bottom")
+   :wm-ignore true
+   :focusable true
+   (shutContent)
+)
+
+; === Restart popup === ;
+
+(defwidget restContent []
+   (box
+     :orientation "vertical"
+     :class "popup pprest"
+ 
+      (label :text "Are you sure you want to restart?")
+ 
+     (box
+       :orientation "horizontal"
+ 
+         (button :onclick "eww close rest" "No")
+         (button :onclick "eww close rest && reboot" "Yes")
+      )
+   )
+)
+
+(defwindow rest
+   :monitor 0
+   :geometry (geometry
+      :x "109px" :y "-60px"
+      :width "300px" :height "60px"
+      :anchor "left bottom")
+   :wm-ignore true
+   :focusable true
+   (restContent)
+)
+
+; === Resize mode displayer === ;
+; Note: needs a loop or something outside eww
+; but i'm not using it anymore, instead use the 
+; keyboard leds (see i3/loop.py).
+
+(defwidget resizeLabel []
+   (box
+      :class "resizer"
+      (label :text "⇋  Resizing")
+   )
+)
+
+(defwindow resizer
+   :monitor 0
+   :geometry (geometry
+      :x "-20px" :y "-20px"
+      :width "100px" :height "40px"
+      :anchor "right bottom")
+   :wm-ignore true
+   :stacking "fg"
+   (resizeLabel)
+)
+
+; === Caps mode displayer === ;
+; Don't ask why this is there,
+; i'm addicted to spam the cap key please send help
+
+(defwidget capsLabel []
+   (box
+      :class "capser"
+      (label :text "⁂  Caps locked")
+   )
+)
+
+(defwindow capser
+   :monitor 0
+   :geometry (geometry
+      :x "-135px" :y "-20px"
+      :width "120px" :height "40px"
+      :anchor "right bottom")
+   :wm-ignore true
+   :stacking "fg"
+   (capsLabel)
+)

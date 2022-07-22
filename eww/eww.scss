@@ -1,0 +1,217 @@
+/*
+   Style
+
+   Don't look to close at the class names
+*/
+
+.ewwbar {
+   background-color: #282a36;
+   border: 3px solid #44475a;
+   border-radius: 7px;
+}
+
+/* Clock */
+
+.hour, .mins {
+   padding-right: 2px;
+   padding-left: 2px;
+   padding-top: 12px;
+   padding-bottom: 12px;
+   font-size: 26px;
+}
+
+.hour {color: #44475a;}
+
+.mins {
+   font-size: 22px;
+   background-color: #bd93f9;
+   margin: 5px;
+   border-radius: 8px;
+}
+
+/* Workspaces */
+
+.sep {
+   letter-spacing: -1px;
+   color: #2E3440;
+}
+
+.workspace:last-child .sep {opacity: 0;}
+
+.output * {
+   margin-left: 2px;
+   margin-right: 2px;
+}
+
+/* Progress bars */
+
+.bars * {background-color: transparent;}
+
+.bars trough {
+   margin: 3px;
+   border: 1px solid #2E3440;
+}
+
+.CPU progress {background-color: #8be9fd;}
+.RAM progress {background-color: #ff79c6;}
+.GPU progress {background-color: #50fa7b;}
+.GPT progress {background-color: #ffb86c;}
+
+/* Tray */
+
+.tray * {
+   all: unset;
+   padding: 2px;
+   margin: 8px;
+   border: 1px solid transparent;
+   border-radius: 8px;
+}
+
+.settings:hover {border-color: #f8f8f2;}
+.shut:hover {border-color: #ff5555;}
+.rest:hover {border-color: #ffb86c;}
+.sleep:hover {border-color: #50fa7b;}
+
+/* Popups */
+
+.popup {
+   border: 2px solid;
+   border-radius: 6px;
+   background-color: #282a36;
+   color: #f8f8f2;
+}
+
+.popup button {
+   all: unset;
+   margin: 5px;
+   padding: 5px;
+   border: 3px solid transparent;
+   border-radius: 6px;
+}
+
+.ppshut, .shut button:hover {border-color: #ff5555;}
+.pprest, .rest button:hover {border-color: #ffb86c;}
+
+/* Resizer & capser */
+
+.resizer {background-color: #ff5555;}
+.capser {background-color: #ff79c6;}
+
+/* Settings */
+
+.settings1, .settings2, .settings3 {
+   background-color: #282a36;
+   border: 3px solid #44475a;
+   border-radius: 7px;
+}
+
+.settings1 button, .set_close, .snd_btn {
+   all: unset;
+   border: 2px solid #44475a;
+   border-radius: 7px;
+   margin: 6px;
+}
+
+.settings1 button label:first-child, .snd_btn label:first-child {
+   font-size: 16px;
+   color: #bd93f9;
+}
+
+.settings1 button:hover, .snd_btn:hover {
+   border-color: #bd93f9;
+}
+
+.snd_btn * {padding: 8px;}
+
+.set_close:hover {background-color: #ff5555;}
+
+/* Desk */
+
+.desk1, .desk2, .desk3, .desk4 {
+   border: 3px solid #44475a;
+   background-color: #282a36;
+}
+
+.desk4 {background-color: transparent;} /* Transparency for glava */
+
+.pfp {
+   border: 1px solid #2E3440;
+   border-radius: 50%;
+}
+
+.musicctrl button {
+   all: unset;
+   padding: 10px;
+   letter-spacing: -1px;
+   font-size: 14px;
+   border: 1px solid transparent;
+   border-radius: 50%;
+}
+
+.musicctrl button:nth-child(2) {font-size: 18px;}
+
+.musicctrl button:hover {
+   color: #bd93f9;
+   border-bottom: 1px solid #44475a;
+   border-right: 1px solid #44475a;
+}
+
+/* Progress */
+
+.pouter {
+   color: #8be9fd;
+   margin: 10px;
+}
+
+.pinner {
+   color: #ffb86c;
+   margin: 16px;
+}
+
+.plabel {
+   color: #f8f8f2;
+   letter-spacing: 4px;
+}
+
+/* Colors */
+.ggpu:nth-child(2) {color: #50fa7b;}
+.gram:nth-child(1) {color: #ff79c6;}
+.gssd:nth-child(2) {color: #ff5555;}
+
+/* Shortcuts */
+
+.shortcuts button {
+   all: unset;
+   border: none;
+   border-left: 1px solid #44475a;
+   border-right: 1px solid #44475a;
+   padding: 4px;
+   padding-left: 9px;
+   padding-right: 9px;
+   margin: 4px;
+}
+
+.shortcuts button:nth-child(1) {border-left: none;}
+.shortcuts button:nth-last-child(1) {border-right: none;}
+
+.shortcuts button:hover {
+   border-bottom: 1px solid #44475a;
+   border-top: 1px solid #44475a;
+}
+
+/* Glava */
+
+.showcava {
+   margin: 10px;
+   margin-top: 14px;
+}
+
+.showcava check {
+   all: unset;
+   border: 1px solid #2E3440;
+   color: #bd93f9;
+   font-family: "Cantarell";
+   font-size: 14.66px;
+}
+
+button, button:hover {transition: all ease-in-out 0.4s;}

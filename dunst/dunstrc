@@ -1,0 +1,45 @@
+# ===== DUNST CONFIG FILE ===== #
+
+[global]
+    monitor = 0
+
+    width = 280
+    height = 120
+    offset = 2670x21
+
+    corner_radius = 8
+    frame_width = 3
+    transparency = 10
+    padding = 9
+    indicate_hidden = no
+    icon_position = off
+    always_run_script = true
+    font = Roboto Regular 10
+    mouse_left_click = do_action
+    mouse_right_click = close_current
+    alignment = center
+    vertical_alignment = center
+    title = Dunst
+    class = Dunst
+
+[experimental]
+    per_monitor_dpi = false
+
+[urgency_low]
+    background = "#282a36"
+    foreground = "#e8e6e3"
+    frame_color = "#44475a"
+    timeout = 3
+
+[urgency_normal]
+    background = "#282a36"
+    foreground = "#e8e6e3"
+    frame_color = "#44475a"
+    timeout = 3
+
+[urgency_critical]
+    background = "#282a36"
+    foreground = "#e8e6e3"
+    frame_color = "#ff5555"
+    timeout = 0
+

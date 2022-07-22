@@ -1,0 +1,189 @@
+; ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ;
+; ┃                                EWW BAR                              ┃ ;
+; ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ ; (wow cool frame)
+
+(include "./popups.yuck")
+(include "./settings.yuck")
+(include "./desk.yuck")
+
+; A bunch of system polls
+(defpoll hour :interval "1s" :initial "00" `date +%H`)
+(defpoll mins :interval "1s" :initial "00" `date +%M`)
+(defpoll useCPU :interval "1s" :initial "0" `grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}'`)
+(defpoll useCPUTemp :interval "1s" :initial "0" `echo $(python3 -c "import os; print(int(os.popen('cat /sys/class/thermal/thermal_zone*/temp').read().split()[2]) // 1000)")`)
+(defpoll useRAM :interval "1s" :initial "0" `free | grep Mem | awk '{print $3/$2 * 100.0}'`)
+(defpoll useGPU :interval "1s" :initial "0" `python3 -m gpustat |grep M2000|awk '{print $6}'|tr -d " %"`)
+(defpoll useGPUTemp :interval "1s" :initial "0" `python3 -m gpustat |grep M2000|awk '{print $5}'|tr -d "'C," `)
+(defpoll useSSD :interval "1s" :initial "0" `df /dev/sda | awk '{print $5}' | sed -n 2p | sed 's/%//g'`)
+(defpoll spaceSSD :interval "1s" :initial "0" `df -H | grep sda3 | awk '{print $5}' | sed 's/%//g'`)
+
+; Monitor and sound polls
+(defpoll outputs :interval "1s" :initial "[]" `echo $(python3 parser.py) | cut -d "!" -f2`)
+(defpoll inputs :interval "1s" :initial "[]" `echo $(python3 soundParse.py)`)
+
+(defwidget content []
+  (box
+    :orientation "vertical"
+    :halign "fill"
+    :class "main"
+
+    ; Clock
+    (box
+      :orientation "vertical"
+      :halign "fill"
+      :space-evenly false
+      
+      (label :text hour :class "hour")
+      (label :text mins :class "mins")
+    )
+
+    ; Workspaces
+    (box
+      :orientation "vertical"
+      :valign "start"
+
+      (for output in outputs
+        (box
+          :orientation "vertical"
+          :class "workspace"
+            (box
+              :halign "center"
+              :class "output"
+              
+              (for wk in "${output['wks']}"
+                (label
+                  :text "${wk['name']}"
+                  :style "color: ${wk['focused'] ? '#bd93f9' : '#f8f8f2'}"
+                )
+              )
+            )
+          
+          (label
+            :text "───"
+            :class "sep"
+          )
+        )
+      )
+    )
+
+    ; Monitoring
+    (box
+      :orientation "horizontal"
+      :halign "center"
+      :class "bars"
+
+      ; CPU
+      (box
+        :orientation "horizontal"
+        :halign "center"
+
+        (progress
+          :orientation "vertical"
+          :value useCPU
+          :flipped true
+          :class "CPU"
+        )
+      )
+
+      ; RAM
+      (box
+        :orientation "horizontal"
+        :halign "center"
+
+        (progress
+          :orientation "vertical"
+          :value useRAM
+          :flipped true
+          :class "RAM"
+        )
+      )
+
+      ; GPU
+      (box
+        :orientation "vertical"
+        :halign "center"
+
+        (progress
+          :orientation "vertical"
+          :value useGPUTemp
+          :flipped true
+          :class "GPT"
+        )
+
+        (progress
+          :orientation "vertical"
+          :value useGPU
+          :flipped true
+          :class "GPU"
+        )
+      )
+    )
+
+    ; Tray
+    (box
+      :orientation "vertical"
+      :valign "end"
+      :class "tray"
+
+      (button
+        :onclick "eww open-many settings1 settings2 settings3"
+        :class "settings"
+
+        (image
+          :path "./src/settings.png"
+          :image-width 18
+          :image-height 18
+        )
+      )
+
+      (button
+        :onclick "eww open shut"
+        :class "shut"
+
+        (image
+          :path "./src/power.png"
+          :image-width 18
+          :image-height 18
+        )
+      )
+
+      (button
+        :onclick "eww open rest"
+        :class "rest"
+
+        (image
+          :path "./src/restart.png"
+          :image-width 18
+          :image-height 18
+        )
+      )
+
+      (button
+        :onclick "customLock"
+        :class "sleep"
+        
+        (image
+          :path "./src/sleep.png"
+          :image-width 18
+          :image-height 18
+        )
+      )
+    )
+  )
+)
+
+; Bar window
+
+(defwindow ewwbar
+  :monitor 0
+  :geometry (geometry
+    :x "24px" :y "0px"
+    :width "60px" :height "1392px"
+    :anchor "left center"
+  )
+
+  :stacking "bg"
+  :focusable true
+  :wm-ignore true
+  (content)
+)

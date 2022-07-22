@@ -1,0 +1,186 @@
+; ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓ ;
+; ┃                                SETTINGS                             ┃ ;
+; ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛ ;
+
+; Volume settings
+(defwidget settingsContent2 []
+   (box
+      :orientation "vertical"
+      
+
+      (scroll
+         :orientation "horizontal"
+         :class "scroller"
+
+         (box
+            :orientation "vertical"
+            :valign "start"
+
+
+            (for input in inputs
+               (box
+                  :orientation "vertical"
+
+                  (label
+                     :text "${input['rep']}"
+                  )
+
+                  (scale
+                     :min 0
+                     :max 100
+                     :value "${input['vol']}"
+                     :onchange "pa_volume ${input['name']} {}"
+                  )
+               )
+            )
+         )
+      )
+
+      (button
+         :valign "end"
+         :class "snd_btn"
+
+         (box
+            :orientation "vertical"
+               "_/`"
+               "Sound options"
+         )
+      )
+   )
+)
+
+; General settings
+(defwidget settingsContent1 []
+
+   (box
+      :orientation "vertical"
+      :valign "fill"
+      :class "settingsBox"
+
+      ; Stereo sound sync
+      (button
+         :onclick "python3 ~/docs/soundSync.py"
+
+         (box
+            :orientation "vertical"
+               "_/`"
+               "Sync sound"
+         )
+      )
+
+      ; Change flop mode
+      (button
+         :onclick "flop -n"
+         :timeout "3s"
+
+         (box
+            :orientation "vertical"
+               "[      ]"
+               "Normal mode"
+         )
+      )
+      
+      (button
+         :onclick "flop -c"
+         :timeout "3s"
+
+         (box
+            :orientation "vertical"
+               "--[  ]--"
+               "Focus mode"
+         )
+      )
+      
+      (button
+         :onclick "flop -h"
+         :timeout "3s"
+
+         (box
+            :orientation "vertical"
+               "[ ][ ]"
+               "Half mode"
+         )
+      )
+
+      (button
+         :onclick "flop -p"
+         :timeout "3s"
+
+         (box
+            :orientation "vertical"
+               "[  ][]"
+               "Pannel mode"
+         )
+      )
+   )
+)
+
+; Close button
+(defwidget settingsContent3 []
+   (box
+      :orientation "vertical"
+
+      (button
+         :onclick "eww close settings1 settings2 settings3"
+         :class "set_close"
+         "Close"
+      )
+   )
+)
+
+
+; Volume window
+(defwindow settings1
+   :monitor 0
+   :geometry (geometry
+      :x "109px" :y "368px"
+      :width "150px" :height "500px"
+      :anchor "left center"
+   )
+   :stacking "fg"
+   :focusable true
+   :wm-ignore true
+   (settingsContent1)
+)
+
+; General window
+(defwindow settings2
+   :monitor 0
+   :geometry (geometry
+      :x "109px" :y "-296px"
+      :width "150px" :height "800px"
+      :anchor "left center"
+   )
+   :stacking "fg"
+   :focusable true
+   :wm-ignore true
+   (settingsContent2)
+)
+
+; Close window
+(defwindow settings3
+   :monitor 0
+   :geometry (geometry
+      :x "109px" :y "662px"
+      :width "150px" :height "60px"
+      :anchor "left center"
+   )
+   :stacking "fg"
+   :focusable true
+   :wm-ignore true
+   (settingsContent3)
+)
+
+; Sound window
+(defwindow settings4
+   :monitor 0
+   :geometry (geometry
+      :x "280px" :y "24px"
+      :width "150px" :height "200px"
+      :anchor "top left"
+   )
+   :stacking "fg"
+   :focusable true
+   :wm-ignore true
+   (settingsContent4)
+)
