@@ -22,5 +22,12 @@ Also, i'm trash at coding.
 - gpustat (`pip install gpustat`)
 - pa_volume ([github](https://github.com/rhaas80/pa_volume))
 
+### Screenshots
+
+![demo1](https://github.com/Egsagon/ugly_rice/blob/master/src/demo1.png "Floating windows")
+![demo2](https://github.com/Egsagon/ugly_rice/blob/master/src/demo2.png "Empty desktop")
+![demo3](https://github.com/Egsagon/ugly_rice/blob/master/src/demo3.png "Pannel mode")
+![demo4](https://github.com/Egsagon/ugly_rice/blob/master/src/demo4.png "Pannel mode with a game")
+
 
 TODO: add the /usr/bin scripts
