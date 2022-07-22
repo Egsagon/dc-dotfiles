@@ -10,8 +10,10 @@ Also, i'm trash at coding.
 - Distro: Arch Linux
 - WM: i3-gaps
 - Compositor: picom-tryone-git
+- theme: Dracula ([website](https://draculatheme.com/))
 - App launcher: rofi
 - Widgets: eww
+- Firefox dark theme: Dark reader with dracula theme ([addon](https://addons.mozilla.org/fr/firefox/addon/darkreader/))
 - Notifications: dunst
 - Terminal: gnome-terminal-transparency (yes sftu)
 - keyboard leds: Eruption ([github](https://github.com/X3n0m0rph59/eruption))
@@ -22,5 +24,11 @@ Also, i'm trash at coding.
 - gpustat (`pip install gpustat`)
 - pa_volume ([github](https://github.com/rhaas80/pa_volume))
 
+### Screenshots
 
-TODO: add the /usr/bin scripts
+![demo1](https://github.com/Egsagon/ugly_rice/blob/master/src/demo1.png "Floating windows")
+![demo2](https://github.com/Egsagon/ugly_rice/blob/master/src/demo2.png "Empty desktop")
+![demo3](https://github.com/Egsagon/ugly_rice/blob/master/src/demo3.png "Pannel mode")
+![demo4](https://github.com/Egsagon/ugly_rice/blob/master/src/demo4.png "Pannel mode with a game")
+
+Enjoy watever this is
