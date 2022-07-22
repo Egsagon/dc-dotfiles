@@ -1,0 +1,98 @@
+#!/usr/bin/python3
+
+import os, sys
+
+# -- Settings -- #
+RES = RESW, RESH = 3440, 1440   # screen resolution
+BAR = BARW, BARH = 90  , None   # Bar dimensions
+GAP = 24                        # Inner i3-gaps value
+MON = 'DP-4'			# Custom monitor
+# -------------- #
+
+# If not specified, fetch the monitor
+MON = MON or os.popen('getMonitor').read()
+
+if len(sys.argv) <= 1:
+    print('Invalid mode.')
+    exit()
+
+VIRTUAL = {'LEFT', 'RIGHT', 'FG', 'BG'}
+
+# Attempt to delete each monitor
+for m in VIRTUAL:
+    res = os.popen(f'xrandr --delmonitor {m}').read()
+    if not 'No monitor named' in res: print(f'[XRANDR] Error: {res}')
+
+mode = sys.argv[1]
+
+
+if mode == '--normal' or mode == '-n':
+    # Normal mode (native)
+    
+    # Reset the wallpaper
+    os.system('wallref')
+    
+    # Close eww widgets except the bar
+    os.system('eww close-all')
+    os.system('eww open ewwbar')
+    
+    # Set gaps + left gaps for the bar
+    # We set gaps instead of resizing the monitor so fs apps aren't cut.
+    os.system(f'i3-msg "gaps inner all set {GAP}"')
+    os.system(f'i3-msg "gaps left all set {BARW}"')
+
+
+elif mode == '--center' or mode == '-c':
+    # Centerd mode (1980x1080)
+    # Helps weak GPUs and games that doen't support certain res.
+    
+    # `Remove` the wallpaper
+    os.system('feh --bg-center /home/egsagon/imgs/black.jpg')
+    
+    # Close eww widgets
+    os.system('eww close-all')
+    
+    # Create a foreground monitor
+    os.system(f'xrandr --setmonitor FG 1920/0x1200/1+{RESW // 2 - 960}+60 {MON}')
+    
+    # Remove the gaps
+    os.system(f'i3-msg "gaps inner all set {GAP // 2}"') # reduce inner gap because res is small
+    os.system('i3-msg "gaps left all set 0"')
+
+
+elif mode == '--half' or mode == '-h':
+    # Split into two equal monitors (1675/1440 x2)
+    # Gains the advantages of a dualscreen setup (hopefully)
+    # Monitors width will be resized to show the bar
+    
+    h_res = RESW // 2 - BARW // 2
+    
+    # Left and right monitors
+    
+    # Offset from the bar
+    os.system(f'xrandr --setmonitor LEFT {h_res}/0x{RESH}/1+{BARW}+0 {MON}')
+    
+    # Offset from the bar + the first monitor
+    os.system(f'xrandr --setmonitor RIGHT {h_res}/1x{RESH}/1+{BARW + h_res}+0 none')
+    
+    # Remove the bar gaps (actualize + remove left gaps for the bar)
+    os.system(f'i3-msg "gaps left all set {GAP}"')
+
+
+elif mode == '--pannel' or mode == '-p':
+    # Split in 3:1, (2560x1440 + 880x1440)
+    # 2560 is an acceptable res for most games and
+    # 880 can support normal apps (like discord)
+    
+    # Left monitor (primary)
+    os.system(f'xrandr --setmonitor LEFT 2650/0x{RESH}/1+0+0 {MON}')
+    
+    # Right monitor
+    os.system(f'xrandr --setmonitor RIGHT 880/1x{RESH}/1+2560+0 none')
+
+
+else: print(f'Invalid mode: `{mode}`.')
+
+# TODO
+# - there is still left gaps in center mode
+# - Make changes permanent if i3 is reloaded
