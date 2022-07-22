@@ -26,9 +26,9 @@ Also, i'm trash at coding.
 
 ### Screenshots
 
-![demo1](https://github.com/Egsagon/ugly_rice/blob/master/src/demo1.png "Floating windows")
+![demo1](https://github.com/Egsagon/ugly_rice/blob/master/src/demo1.jpg "Floating windows")
 ![demo2](https://github.com/Egsagon/ugly_rice/blob/master/src/demo2.png "Empty desktop")
-![demo3](https://github.com/Egsagon/ugly_rice/blob/master/src/demo3.png "Pannel mode")
-![demo4](https://github.com/Egsagon/ugly_rice/blob/master/src/demo4.png "Pannel mode with a game")
+![demo3](https://github.com/Egsagon/ugly_rice/blob/master/src/demo3.jpg "Pannel mode")
+![demo4](https://github.com/Egsagon/ugly_rice/blob/master/src/demo4.jpg "Pannel mode with a game")
 
 Enjoy watever this is
