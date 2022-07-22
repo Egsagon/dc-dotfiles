@@ -31,5 +31,4 @@ Also, i'm trash at coding.
 ![demo3](https://github.com/Egsagon/ugly_rice/blob/master/src/demo3.png "Pannel mode")
 ![demo4](https://github.com/Egsagon/ugly_rice/blob/master/src/demo4.png "Pannel mode with a game")
 
-
-TODO: add the /usr/bin scripts
+Enjoy watever this is
